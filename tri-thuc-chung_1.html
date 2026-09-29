@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tri Thức Chung — Cộng đồng học tập &amp; chia sẻ kiến thức</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F3F5F4;
+    --bg-raised: #FFFFFF;
+    --card: #ECE6D8;
+    --card-line: #D8CFB8;
+    --ink: #17233A;
+    --ink-soft: #4A5568;
+    --ink-faint: #7C8798;
+    --accent: #A9762F;
+    --accent-ink: #6E4A16;
+    --teal: #2F6F62;
+    --line: #D9DCE0;
+    --focus: #2F6F62;
+  }
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --bg: #12161D;
+      --bg-raised: #171C25;
+      --card: #1E2530;
+      --card-line: #323B49;
+      --ink: #EDEFF3;
+      --ink-soft: #B7BFCC;
+      --ink-faint: #808A99;
+      --accent: #D8A35C;
+      --accent-ink: #F0C284;
+      --teal: #5FA695;
+      --line: #2A3241;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #12161D;
+    --bg-raised: #171C25;
+    --card: #1E2530;
+    --card-line: #323B49;
+    --ink: #EDEFF3;
+    --ink-soft: #B7BFCC;
+    --ink-faint: #808A99;
+    --accent: #D8A35C;
+    --accent-ink: #F0C284;
+    --teal: #5FA695;
+    --line: #2A3241;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width:100%; }
+  a{ color: inherit; }
+  h1,h2,h3{
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0;
+  }
+  .wrap{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position: sticky; top:0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content: space-between;
+    padding: 18px 28px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Source Serif 4', serif; font-weight:600; font-size:1.2rem;
+    text-decoration:none; color: var(--ink);
+  }
+  .brand-mark{
+    width:30px; height:30px; border-radius:3px;
+    background: var(--teal);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:.85rem; font-weight:700;
+    transform: rotate(-4deg);
+  }
+  .nav-links{
+    display:flex; gap: 30px; list-style:none; margin:0; padding:0;
+  }
+  .nav-links a{
+    text-decoration:none; color: var(--ink-soft); font-size:.95rem;
+    padding: 6px 2px; border-bottom: 2px solid transparent;
+    transition: border-color .15s, color .15s;
+  }
+  .nav-links a:hover{ color: var(--ink); border-color: var(--accent); }
+  .nav-cta{
+    background: #A9762F; color: #FFFFFF;
+    padding: 10px 20px; border-radius: 3px; text-decoration:none;
+    font-size: .92rem; font-weight:600; white-space:nowrap;
+  }
+  .nav-toggle{ display:none; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 84px 0 96px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 56px;
+    align-items:center;
+  }
+  .eyebrow-note{
+    color: var(--teal);
+    font-size: .95rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .hero h1{
+    font-size: clamp(2.3rem, 4.4vw, 3.4rem);
+    max-width: 15ch;
+    letter-spacing: -0.01em;
+  }
+  .hero p{
+    margin: 24px 0 34px;
+    font-size: 1.12rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+  .hero-ctas{ display:flex; gap:16px; flex-wrap: wrap; align-items:center; }
+  .btn-primary{
+    background: #A9762F; color: #fff;
+    padding: 14px 26px; border-radius: 3px;
+    text-decoration:none; font-weight:600; font-size:1rem;
+    display:inline-block; border:none; cursor:pointer;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn-primary:hover{ transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.12); }
+  .btn-secondary{
+    color: var(--ink); text-decoration:none; font-weight:600; font-size:1rem;
+    border-bottom: 2px solid var(--card-line);
+    padding-bottom: 2px;
+  }
+  .btn-secondary:hover{ border-color: var(--accent); }
+
+  /* card stack visual */
+  .stack{
+    position:relative; height: 380px;
+  }
+  .idx-card{
+    position:absolute; width: 78%; left: 10%;
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-radius: 4px;
+    padding: 20px 22px;
+    box-shadow: 0 10px 24px rgba(23,35,58,.10);
+  }
+  .idx-card .hole{
+    position:absolute; top:16px; left:16px;
+    width:10px; height:10px; border-radius:50%;
+    background: var(--bg);
+    border: 1px solid var(--card-line);
+  }
+  .idx-card .tab{
+    font-size: .78rem; font-weight:600; color: var(--accent-ink);
+    margin-bottom: 10px; padding-left: 22px;
+  }
+  .idx-card .line{
+    height:1px; background: var(--card-line); margin: 9px 0;
+  }
+  .idx-card .line:nth-child(3){ width:78%; }
+  .idx-card:nth-child(1){ top: 0; transform: rotate(-6deg); z-index:1; }
+  .idx-card:nth-child(2){ top: 78px; transform: rotate(3deg); z-index:2; }
+  .idx-card:nth-child(3){ top: 156px; transform: rotate(-2deg); z-index:3; background: var(--bg-raised); }
+
+  /* ---------- Stats ---------- */
+  .stats{
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 40px 0;
+  }
+  .stats-grid{
+    display:grid; grid-template-columns: repeat(4,1fr); gap: 24px;
+  }
+  .stat b{
+    display:block; font-family:'Source Serif 4',serif; font-size: 2rem;
+    color: var(--ink);
+  }
+  .stat span{ color: var(--ink-faint); font-size: .92rem; }
+
+  /* ---------- Section shared ---------- */
+  section{ padding: 96px 0; }
+  .section-head{
+    max-width: 56ch; margin-bottom: 56px;
+  }
+  .section-head h2{
+    font-size: clamp(1.7rem, 2.8vw, 2.2rem);
+  }
+  .section-head p{
+    color: var(--ink-soft); margin-top: 14px; font-size: 1.05rem;
+  }
+
+  /* ---------- Features (alternating rows, not identical cards) ---------- */
+  .feature-row{
+    display:grid; grid-template-columns: 90px 1fr;
+    gap: 26px; padding: 30px 0;
+    border-top: 1px solid var(--line);
+  }
+  .feature-row:last-child{ border-bottom: 1px solid var(--line); }
+  .feature-icon{
+    width:52px; height:52px; color: var(--teal);
+  }
+  .feature-row h3{ font-size: 1.25rem; margin-bottom: 8px; }
+  .feature-row p{ color: var(--ink-soft); max-width: 58ch; margin:0; }
+
+  /* ---------- How it works (real sequence => numbered ok) ---------- */
+  .steps{
+    display:grid; grid-template-columns: repeat(3,1fr); gap: 40px;
+  }
+  .step{ position:relative; padding-left: 4px; }
+  .step .num{
+    font-family:'Source Serif 4',serif; font-size: 2.6rem;
+    color: var(--card-line); font-weight:600; display:block; margin-bottom: 6px;
+  }
+  .step h3{ font-size: 1.15rem; margin-bottom:10px; }
+  .step p{ color: var(--ink-soft); margin:0; }
+
+  /* ---------- Topics ---------- */
+  .topics-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+  }
+  .topic-card{
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-radius: 4px;
+    padding: 22px 20px 20px;
+    position: relative;
+  }
+  .topic-card .hole{
+    position:absolute; top:14px; left:14px;
+    width:8px; height:8px; border-radius:50%;
+    background: var(--bg); border:1px solid var(--card-line);
+  }
+  .topic-card h4{
+    font-family:'Source Serif 4',serif; font-weight:600;
+    font-size: 1.05rem; margin: 10px 0 6px 18px;
+  }
+  .topic-card p{
+    font-size: .88rem; color: var(--ink-faint); margin: 0 0 0 18px;
+  }
+
+  /* ---------- Testimonial ---------- */
+  .testimonial{
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 48px;
+    display:grid; grid-template-columns: auto 1fr; gap: 32px; align-items:center;
+  }
+  .avatar{
+    width:64px; height:64px; border-radius:50%;
+    background: var(--teal); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Source Serif 4',serif; font-size:1.3rem; font-weight:600;
+  }
+  .testimonial blockquote{
+    margin:0; font-family:'Source Serif 4',serif; font-size:1.3rem;
+    font-style: italic; color: var(--ink); line-height:1.5;
+  }
+  .testimonial cite{
+    display:block; margin-top:14px; font-style:normal;
+    color: var(--ink-faint); font-size: .92rem;
+  }
+
+  /* ---------- CTA footer band ---------- */
+  .cta-band{
+    background: var(black);
+    color: var(--bg);
+    border-radius: 8px;
+    padding: 56px 48px;
+    display:grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items:center;
+  }
+  :root[data-theme="dark"] .cta-band, .cta-band{ color:#F3F5F4; }
+  .cta-band h2{ color:#fff; font-size: clamp(1.6rem,2.6vw,2rem); }
+  .cta-band p{ color: #C3CAD6; margin-top:12px; max-width:40ch; }
+  .cta-form{
+    display:flex; gap:10px; flex-wrap:wrap;
+  }
+  .cta-form input{
+    flex:1; min-width: 200px;
+    padding: 13px 16px; border-radius:3px; border: 1px solid #384158;
+    background: #1E2434; color:#fff; font-size: .95rem; font-family: inherit;
+  }
+  .cta-form input::placeholder{ color:#8C97AD; }
+  .cta-form button{
+    background: var(--accent); color:#fff; border:none;
+    padding: 13px 22px; border-radius:3px; font-weight:600; cursor:pointer;
+    font-size:.95rem; font-family:inherit;
+  }
+  .form-note{ font-size:.8rem; color:#8C97AD; margin-top:10px; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding: 48px 0 64px;
+    border-top: 1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  footer .brand{ font-size:1.05rem; }
+  .footer-links{ display:flex; gap: 26px; list-style:none; padding:0; margin:0; }
+  .footer-links a{ text-decoration:none; color: var(--ink-faint); font-size:.9rem; }
+  .footer-links a:hover{ color: var(--ink); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px){
+    .nav-links{ display:none; }
+    .hero-grid{ grid-template-columns: 1fr; }
+    .stack{ height: 300px; margin-top: 20px; }
+    .stats-grid{ grid-template-columns: repeat(2,1fr); }
+    .steps{ grid-template-columns: 1fr; gap: 32px; }
+    .topics-grid{ grid-template-columns: repeat(2,1fr); }
+    .testimonial{ grid-template-columns: 1fr; padding: 32px; text-align:left; }
+    .cta-band{ grid-template-columns: 1fr; padding: 36px 26px; }
+    section{ padding: 64px 0; }
+  }
+  @media (max-width: 480px){
+    .topics-grid{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav wrap">
+    <a href="#top" class="brand">
+      <span class="brand-mark">🦖</span>
+      Tri Thức Chung
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Vì sao tham gia</a></li>
+      <li><a href="#how">Cách hoạt động</a></li>
+      <li><a href="#topics">Chủ đề</a></li>
+      <li><a href="#join">Cộng đồng</a></li>
+    </ul>
+    <a href="#join" class="nav-cta">Tham gia miễn phí</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow-note">Học cùng nhau, đi xa hơn</p>
+        <h1>Nơi kiến thức được chia sẻ, không phải cất giữ</h1>
+        <p>Tri Thức Chung là cộng đồng để bạn đăng ghi chú, đặt câu hỏi khi bế tắc, và giúp người khác hiểu điều mà chính bạn từng loay hoay tìm ra. Mọi đóng góp đều được lưu lại để người sau không phải bắt đầu từ số 0.</p>
+        <div class="hero-ctas">
+          <a href="#join" class="btn-primary">Tham gia miễn phí</a>
+          <a href="#topics" class="btn-secondary">Xem các chủ đề</a>
+        </div>
+      </div>
+      <div class="stack" aria-hidden="true">
+        <div class="idx-card">
+          <span class="hole"></span>
+          <div class="tab">Toán rời rạc</div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <div class="idx-card">
+          <span class="hole"></span>
+          <div class="tab">Tiếng Anh học thuật</div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <div class="idx-card">
+          <span class="hole"></span>
+          <div class="tab">Lập trình Python</div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="wrap stats-grid">
+      <div class="stat"><b>18.400</b><span>thành viên đang học</span></div>
+      <div class="stat"><b>6.200</b><span>ghi chú &amp; bài viết</span></div>
+      <div class="stat"><b>92%</b><span>câu hỏi được giải đáp trong 24 giờ</span></div>
+      <div class="stat"><b>310</b><span>nhóm học theo chủ đề</span></div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Học một mình rất dễ bỏ cuộc</h2>
+        <p>Chúng tôi xây dựng ba việc mà một người tự học khó làm được một mình: đặt câu hỏi đúng lúc, nhận phản hồi từ người từng trải qua điều đó, và giữ động lực đi tiếp.</p>
+      </div>
+      <div class="feature-row">
+        <svg class="feature-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M9 12h30v22a2 2 0 0 1-2 2H15l-8 6V14a2 2 0 0 1 2-2Z" stroke-linejoin="round"/>
+          <path d="M16 20h16M16 26h10" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <h3>Hỏi mà không ngại</h3>
+          <p>Đăng câu hỏi cụ thể về bài tập, khái niệm, hay lộ trình học — cộng đồng trả lời theo kinh nghiệm thật, không phải lý thuyết suông.</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <svg class="feature-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="9" y="8" width="20" height="26" rx="1.5"/>
+          <path d="M15 15h8M15 20h8M15 25h5" stroke-linecap="round"/>
+          <path d="M29 14l10 4v18l-10-4V14Z" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <h3>Ghi chú không mất đi</h3>
+          <p>Mỗi ghi chú bạn đăng trở thành tài liệu cho người học sau. Càng nhiều người dùng lại, ghi chú càng được chỉnh sửa và chính xác hơn.</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <svg class="feature-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="17" cy="17" r="6"/>
+          <circle cx="33" cy="19" r="5"/>
+          <path d="M7 38c0-6 4.5-10 10-10s10 4 10 10M27 38c.5-4.5 3-8 8-8s8 3.5 9 8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <h3>Nhóm học cùng mục tiêu</h3>
+          <p>Tìm nhóm nhỏ 4–8 người đang học cùng thứ bạn học, cùng đặt hạn chót, và cùng nhắc nhau khi có người chậm tiến độ.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Bắt đầu trong ba bước</h2>
+        <p>Không cần hồ sơ phức tạp. Bạn có thể vừa hỏi, vừa trả lời, vừa học ngay trong tuần đầu tiên.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="num">1</span>
+          <h3>Chọn chủ đề bạn đang học</h3>
+          <p>Từ lập trình, ngoại ngữ đến kỹ năng nghề nghiệp — chọn một hoặc nhiều chủ đề để cộng đồng đề xuất đúng nội dung cho bạn.</p>
+        </div>
+        <div class="step">
+          <span class="num">2</span>
+          <h3>Đăng câu hỏi hoặc ghi chú đầu tiên</h3>
+          <p>Bạn không cần là chuyên gia. Một câu hỏi thật, hoặc một ghi chú ngắn về điều bạn vừa học, đã đủ để bắt đầu.</p>
+        </div>
+        <div class="step">
+          <span class="num">3</span>
+          <h3>Giúp lại một người khác</h3>
+          <p>Trả lời một câu hỏi trong lĩnh vực bạn hiểu rõ. Đó là cách cộng đồng này tự duy trì mà không cần ai "dạy" ai.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="topics">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Chủ đề đang hoạt động sôi nổi</h2>
+        <p>Mỗi chủ đề là một không gian riêng với ghi chú, câu hỏi thường gặp, và nhóm học đang mở.</p>
+      </div>
+      <div class="topics-grid">
+        <div class="topic-card"><span class="hole"></span><h4>Lập trình &amp; CNTT</h4><p>2.340 thành viên</p></div>
+        <div class="topic-card"><span class="hole"></span><h4>Ngoại ngữ</h4><p>1.980 thành viên</p></div>
+        <div class="topic-card"><span class="hole"></span><h4>Kỹ năng nghề nghiệp</h4><p>1.510 thành viên</p></div>
+        <div class="topic-card"><span class="hole"></span><h4>Tài chính cá nhân</h4><p>1.120 thành viên</p></div>
+        <div class="topic-card"><span class="hole"></span><h4>Luyện thi &amp; chứng chỉ</h4><p>2.760 thành viên</p></div>
+        <div class="topic-card"><span class="hole"></span><h4>Khoa học tự nhiên</h4><p>890 thành viên</p></div>
+        <div class="topic-card"><span class="hole"></span><h4>Thiết kế &amp; sáng tạo</h4><p>1.340 thành viên</p></div>
+        <div class="topic-card"><span class="hole"></span><h4>Khởi nghiệp</h4><p>760 thành viên</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="testimonial">
+        <div class="avatar">H</div>
+        <div>
+          <blockquote>Tôi từng tự học lập trình một mình suốt nửa năm mà không tiến bộ mấy. Sau hai tháng ở đây, tôi có người review code, và bây giờ tôi cũng là người trả lời câu hỏi cho người mới.</blockquote>
+          <cite>Huyền, thành viên nhóm Lập trình &amp; CNTT</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="join">
+    <div class="wrap">
+      <div class="cta-band">
+        <div>
+          <h2>Tham gia hôm nay, không mất phí</h2>
+          <p>Nhận email tổng hợp ghi chú hay và câu hỏi nổi bật mỗi tuần, chọn theo đúng chủ đề bạn quan tâm.</p>
+        </div>
+        <div>
+          <form class="cta-form" id="subscribe-form">
+            <input type="email" name="email" placeholder="Email của bạn" required aria-label="Email của bạn">
+            <button type="submit">Đăng ký</button>
+          </form>
+          <p class="form-note" id="form-status" aria-live="polite">Miễn phí. Hủy đăng ký bất cứ lúc nào.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <a href="#top" class="brand"><span class="brand-mark">🦖</span>Tri Thức Chung</a>
+  <ul class="footer-links">
+    <li><a href="#features">Vì sao tham gia</a></li>
+    <li><a href="#how">Cách hoạt động</a></li>
+    <li><a href="#topics">Chủ đề</a></li>
+    <li><a href="#join">Tham gia</a></li>
+  </ul>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init({ publicKey: 'GVNAO4GJBUa2TkLGv' });
+
+  const subscribeForm = document.getElementById('subscribe-form');
+  const formStatus = document.getElementById('form-status');
+  const submitButton = subscribeForm.querySelector('button');
+
+  subscribeForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    submitButton.disabled = true;
+    submitButton.textContent = 'Đang gửi...';
+    formStatus.textContent = 'Đang gửi đăng ký của bạn...';
+
+    const email = subscribeForm.elements.email.value;
+
+    try {
+      await emailjs.send('service_kff4d7u', 'template_ghcpwhn', {
+        email,
+        user_email: email
+      });
+      submitButton.textContent = 'Đã đăng ký';
+      formStatus.textContent = 'Đăng ký thành công. Hãy kiểm tra email của bạn.';
+      subscribeForm.reset();
+    } catch (error) {
+      console.error('EmailJS submission failed:', error);
+      submitButton.disabled = false;
+      submitButton.textContent = 'Đăng ký';
+      formStatus.textContent = 'Không thể gửi lúc này. Vui lòng thử lại sau.';
+    }
+  });
+</script>
+</body>
+</html>
